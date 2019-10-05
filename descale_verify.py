@@ -43,10 +43,10 @@ def descale_y_diff(clip, w, h, dw, dh, kernel, a, b):
 
 def get_statistics(clip):
     values = np.zeros(clip.num_frames)
+    frame_buffs = [clip.get_frame_async(i) for i in range(clip.num_frames)]
     for i in range(clip.num_frames):
-        frame = clip.get_frame(i)
         # read the first plane into numpy array
-        np_array = np.array(frame.get_read_array(0))
+        np_array = np.asarray(frame_buffs[i].result().get_read_array(0))
         # you may change the formula here
         values[i] = np.sum(np.abs(np_array))
         print('\r' + str(i + 1) + '/' + str(clip.num_frames), end='', flush=True)
