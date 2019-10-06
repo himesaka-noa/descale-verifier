@@ -2,7 +2,13 @@ import vapoursynth as vs
 import argparse
 import descale
 import numpy as np
-import matplotlib.pyplot as plt
+try:
+    import matplotlib
+    import matplotlib.pyplot as plt
+except BaseException:
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
 import time
 import logging
 from datetime import datetime
