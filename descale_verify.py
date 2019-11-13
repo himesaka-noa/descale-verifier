@@ -12,6 +12,7 @@ except BaseException:
 import time
 import logging
 from datetime import datetime
+import sys
 
 core = vs.core
 
@@ -93,7 +94,10 @@ def main():
     statistics = get_statistics(diff_clip)
     end_time = time.time()
     print('Time used: {}s'.format(end_time - start_time))
-    save_filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if sys.platform != "win32":
+        save_filename = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    else:
+        save_filename = datetime.now().strftime("%y-%m-%d %H-%M-%S")
     create_plot(statistics, save_filename)
     logging.info('Plot saved to {}.png'.format(save_filename))
 
